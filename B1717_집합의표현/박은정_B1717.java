@@ -38,23 +38,14 @@ public class B1717 {
         br.close();
     }
 
-    private static void union(int a, int b) {
-        int aParent = find(a);
-        int bParent = find(b);
-        if (aParent == bParent) {
-            return;
-        }
-        if (depth[aParent] < depth[bParent]) { //a의 최상위 부모의 깊이
-            parents[aParent] = bParent; // aParent의 root를 bParent로 변경
-        } else {
-            parents[bParent] = aParent; // bParent의 root를 aParent로 변경
-        }
-        if(depth[aParent]==depth[bParent]){
-            depth[aParent]++; // 만약 높이가 같다면, 합친 후 (aParent + 1) //aParent로 root를 변경했으므로!
-        }
+   private static void union(int a, int b) {
+        a = find(a); b = find(b);
 
+        if (depth[a] < depth[b]) parent[a] = b;
+        else parent[b] = a;
+
+        if (depth[a] == depth[b]) depth[a]++;
     }
-
     private static int find(int x) {
         if (parents[x] == x) {//루트
             return x;
